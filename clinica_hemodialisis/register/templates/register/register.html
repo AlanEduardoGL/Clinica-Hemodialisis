@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Registrarme
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h1 class="text-center">Registrarme</h1>
+        <section>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">{{ form.as_p }}</div>
+            {% if error_message %}
+              <div class="alert alert-danger">{{ error_message }}</div>
+            {% endif %}
+            <button class="btn btn-primary" type="submit">Registrarme</button>
+          </form>
+        </section>
+        <hr />
+        <p>
+          Ya dispones de una cuenta. <a title="Inicia Sesión" href="{% url 'login' %}">Inicia Sesión</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
