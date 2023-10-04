@@ -12,22 +12,22 @@
         <section>
           <form method="POST">
             {% csrf_token %}
-            <div class="mb-3">
-                {{ form.as_p }}
-            </div>
+            <div class="mb-3">{{ form.as_p }}</div>
             <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
             {% if messages %}
-            <ul class="messages">
-              {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}           
+              <ul class="messages">
+                {% for message in app.flashes('success') %}
+                  <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </form>
-        </section>  
+        </section>
         <hr />
-        <p>Aún no dispones de una cuenta. <a title="Registrate aquí" href="{% url 'register' %}">Registrate aquí</a></p>      
+        <p>
+          Aún no dispones de una cuenta. <a title="Registrate aquí" href="{% url 'register' %}">Registrate aquí</a>
+        </p>
       </div>
     </div>
-  </div>  
+  </div>
 {% endblock %}

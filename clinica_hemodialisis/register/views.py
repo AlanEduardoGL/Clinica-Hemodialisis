@@ -14,7 +14,6 @@ from django.contrib import messages
 
 # Create your views here.
 
-
 def register(request):
     error_message = None
 
