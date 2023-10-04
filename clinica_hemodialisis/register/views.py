@@ -15,6 +15,19 @@ from django.contrib import messages
 # Create your views here.
 
 def register(request):
+    """
+    Vista que se encarga de manejar el registro de usuarios.
+
+    Args:
+        request (): Toma una solicitud HTTP.
+
+    Returns:
+        redirect('login): Redirige al usuario para iniciar sesion.
+        render('register/register.html): Rendereiza la plantilla HTML.
+        error_message: Muestra mensajes de error.
+        messages.success: Muestra mensaje de exito.
+    """
+
     error_message = None
 
     if request.method == 'POST':
@@ -70,7 +83,7 @@ def register(request):
 
                         messages.success(
                             request,
-                            f'Registro exitoso "{username}."'
+                            f'Registro exitoso, {username}.'
                         )
 
                         return redirect('login')
