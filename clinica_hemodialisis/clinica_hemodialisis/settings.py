@@ -27,6 +27,25 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+"""
+Esto significa que la sesión caducará automáticamente 
+después de 15 minutos de inactividad.
+"""
+SESSION_COOKIE_AGE = 900  # 15 minutos en segundos
+
+"""
+Esto hará que la sesión se renueve con cada solicitud, 
+lo que significa que la sesión no caducará mientras 
+el usuario esté activo en la aplicación.
+"""
+SESSION_SAVE_EVERY_REQUEST = True
+
+"""
+Configuramos la URL donde se redirige al usuario
+para iniciar sesion.
+"""
+LOGIN_URL = 'login'
+
 
 # Application definition
 
