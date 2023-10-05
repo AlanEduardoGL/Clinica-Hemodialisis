@@ -17,13 +17,6 @@
               <div class="alert alert-warning">{{ warning_message }}</div>
             {% endif %}
             <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
-            {% if messages %}
-              <ul class="messages">
-                {% for message in app.flashes('success') %}
-                  <div class="alert alert-success">{{ message }}</div>
-                {% endfor %}
-              </ul>
-            {% endif %}
           </form>
         </section>
         <hr />

@@ -5,6 +5,8 @@ from django.shortcuts import (
 from .forms import FormLogin
 from django.contrib.auth.hashers import check_password
 from register.models import User
+from django.contrib.auth import login as auth_login
+from django.contrib.sessions.models import Session
 
 # Create your views here.
 
@@ -33,10 +35,15 @@ def login(request):
                 # Validamos el email y la contraseña.
                 if email == user.email and check_password(password, user.password):
 
-                    # Limpiamos cualquier sesion existente.
-                    # ! session.clear()
+                    # Limpiamos cualquer sesion existente.
+                    request.session.clear()
 
-                    # La contraseña es válida, permite el inicio de sesión.
+                    # Autenticamos al usuario.
+                    auth_login(request, user)
+
+                    # Almacenamos el id del usuario en la sesion.
+                    request.session['id_user'] = user.id_user
+
                     return redirect('index')
                 
                 else:

@@ -5,5 +5,12 @@
 {% endblock %}
 
 {% block content %}
+  {% if user %}
+    <p>Bienvenido, {{ user.username }}</p>
+  {% else %}
+  {% endif %}
   <h1>Citas Medicas</h1>
-{% endblock %}
+  {% if warning_message %}
+    <div class="alert alert-warning">{{ warning_message }}</div>
+  {% endif %}
+{% endblock %}ß

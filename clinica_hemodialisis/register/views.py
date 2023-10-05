@@ -81,11 +81,6 @@ def register(request):
                         error_message = f'Error al crear el usuario "{username}": {str(e)}'
                     else:
 
-                        messages.success(
-                            request,
-                            f'Registro exitoso, {username}.'
-                        )
-
                         return redirect('login')
 
             else:
