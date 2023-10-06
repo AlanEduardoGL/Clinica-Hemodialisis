@@ -1,31 +1,41 @@
 {% extends 'core/base.html' %}
 
-{% block content %}
-  <!-- Sección de bienvenida -->
-  <section class="container">
-    <div class="row">
-      <div class="col-md-6 py-5">
-        <h1 class="display-4 fst-italic">
-          {% block title %}
-            Pagina Principal
-          {% endblock %}
-        </h1>
-        <p>Aquí podrás compartir tus ideas, pensamientos y experiencias con una comunidad global de lectores. Nuestra plataforma es fácil de usar y te permite publicar tus blogs en pocos pasos.</p>
-        <p>Para empezar, simplemente haz clic en el botón "Publica tu blog" y comienza a escribir. Puedes incluir imágenes y videos para dar vida a tus publicaciones y asegurarte de que sean atractivas para tus lectores.</p>
-        <p>¡Únete a nuestra comunidad hoy y comienza a compartir tus ideas con el mundo!</p>
-        <a href="{% url 'register' %}" class="btn btn-outline-primary w-50 fs-3">Registrate</a>
-        <a href="{% url 'login' %}" class="btn btn-outline-primary w-50 fs-3">Iniciar Sesión</a>
-      </div>
-      <div class="col-md-6">
-        {% comment %} <img src="#" alt="Imagen de bienvenida" class="img-fluid" /> {% endcomment %}
-      </div>
-    </div>
-  </section>
+{% block title %}
+  Pagina Principal
+{% endblock %}
 
-  {% comment %} {% if user %}
-    <p>Bienvenido, {{ user.username }} {{ user.last_name }}</p>
+{% block content %}
+  {% if user %}
+    <!-- Sección de bienvenida -->
+    <section class="container">
+      <div class="row">
+        <div class="col-md-6 py-5">
+          <h1 class="display-4 fst-italic">Pagina Principal</h1>
+          <p>Bienvenido de nuevo, {{ user.username }}. ID user: {{ user.id_user }}</p>
+        </div>
+        <div class="col-md-6">
+          {% comment %} <img src="#" alt="Imagen de bienvenida" class="img-fluid" /> {% endcomment %}
+        </div>
+      </div>
+    </section>
+    <!-- Sección de bienvenida -->
+  {% else %}
+    <!-- Sección de bienvenida -->
+    <section class="container">
+      <div class="row">
+        <div class="col-md-6 py-5">
+          <h1 class="display-4 fst-italic">Pagina Principal</h1>
+          <p>Aquí podrás compartir tus ideas, pensamientos y experiencias con una comunidad global de lectores. Nuestra plataforma es fácil de usar y te permite publicar tus blogs en pocos pasos.</p>
+          <p>Para empezar, simplemente haz clic en el botón "Publica tu blog" y comienza a escribir. Puedes incluir imágenes y videos para dar vida a tus publicaciones y asegurarte de que sean atractivas para tus lectores.</p>
+          <p>¡Únete a nuestra comunidad hoy y comienza a compartir tus ideas con el mundo!</p>
+          <a href="{% url 'register' %}" class="btn btn-outline-primary w-50 fs-3">Registrate</a>
+          <a href="{% url 'login' %}" class="btn btn-outline-primary w-50 fs-3">Iniciar Sesión</a>
+        </div>
+        <div class="col-md-6">
+          {% comment %} <img src="#" alt="Imagen de bienvenida" class="img-fluid" /> {% endcomment %}
+        </div>
+      </div>
+    </section>
+    <!-- Sección de bienvenida -->
   {% endif %}
-  {% if warning_message %}
-    <div class="alert alert-warning">{{ warning_message }}</div>
-  {% endif %} {% endcomment %}
 {% endblock %}

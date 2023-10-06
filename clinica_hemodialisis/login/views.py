@@ -5,12 +5,13 @@ from django.shortcuts import (
 from .forms import FormLogin
 from django.contrib.auth.hashers import check_password
 from register.models import User
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
 def login(request):
-
     warning_message = None
 
     # Validamos si el usuario envio el formulario.
@@ -34,7 +35,6 @@ def login(request):
                     request.session.clear()
                     # Guardamos el id del usuario en la sesion.
                     request.session['id_user'] = user.id_user
-
                     # Redirigimos al index principal.
                     return redirect('index')
                 else:
@@ -51,3 +51,12 @@ def login(request):
         'form': form,
         'warning_message': warning_message
     })
+
+
+@login_required
+def logout(request):
+
+    # Elimina la sesión completa (incluyendo todas las claves y valores)
+    request.session.flush()
+
+    return redirect('index')
