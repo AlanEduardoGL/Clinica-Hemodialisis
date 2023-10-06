@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-def pacientes_registrados(request):
+@login_required
+def pacientes(request):
 
     return render(request, 'pacientes/pacientes.html')

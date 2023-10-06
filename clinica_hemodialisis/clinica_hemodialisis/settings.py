@@ -46,6 +46,9 @@ para iniciar sesion.
 """
 LOGIN_URL = 'login'
 
+# Reemplaza 'tu_app' con el nombre de la aplicación donde está definido tu modelo User
+AUTH_USER_MODEL = 'register.User'
+
 
 # Application definition
 

@@ -25,9 +25,9 @@ from register import views as views_register
 urlpatterns = [
     path('', views_core.index, name='index'),
     path('register/', views_register.register, name='register'),
-    path('login/', views_login.login, name='login'),
-    path('', views_login.logout, name='logout'),
-    path('pacientes_registrados/', views_pacientes.pacientes_registrados, name='pacientes_registrados'),
+    path('login/', views_login.login_user, name='login_user'),
+    path('logout/', views_login.logout_user, name='logout_user'),
+    path('pacientes/', views_pacientes.pacientes, name='pacientes'),
     path('medicos_registrados/', views_medicos.medicos_registrados, name='medicos_registrados'),
     path('admin/', admin.site.urls),
 ]

@@ -1,10 +1,11 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
+class User(AbstractUser):
     id_user = models.AutoField(primary_key=True, verbose_name="ID del Usuario")
-    username = models.CharField(max_length=255, verbose_name="Nombre de Usuario")
+    username = models.CharField(unique=True, max_length=255, verbose_name="Nombre de Usuario")
     name = models.CharField(max_length=255, verbose_name="Nombre")
     last_name = models.CharField(max_length=255, verbose_name="Apellido")
     age = models.IntegerField(verbose_name="Edad")

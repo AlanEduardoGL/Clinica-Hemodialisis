@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block content %}
-  {% if user %}
+  {% if user.is_authenticated  %}
     <!-- Sección de bienvenida -->
     <section class="container">
       <div class="row">
         <div class="col-md-6 py-5">
-          <h1 class="display-4 fst-italic">Pagina Principal</h1>
-          <p>Bienvenido de nuevo, {{ user.username }}. ID user: {{ user.id_user }}</p>
+          <h1 class="display-4 fst-italic">Bienvenido, {{ user.username }} {{ user.last_name }}.</h1>
+          <p>{{ user.username }}, aquí podrás acceder a toda la información y servicios relacionados con las atenciónes médicas. Podrás gestionar tus citas médicas de manera conveniente, conocer a nuestros valiosos pacientes y médicos especializados.</p>
         </div>
         <div class="col-md-6">
           {% comment %} <img src="#" alt="Imagen de bienvenida" class="img-fluid" /> {% endcomment %}
@@ -19,17 +19,19 @@
       </div>
     </section>
     <!-- Sección de bienvenida -->
+    {% if warning_message %}
+      <div class="alert alert-warning">{{ warning_message }}</div>
+    {% endif %}
   {% else %}
     <!-- Sección de bienvenida -->
     <section class="container">
       <div class="row">
         <div class="col-md-6 py-5">
-          <h1 class="display-4 fst-italic">Pagina Principal</h1>
-          <p>Aquí podrás compartir tus ideas, pensamientos y experiencias con una comunidad global de lectores. Nuestra plataforma es fácil de usar y te permite publicar tus blogs en pocos pasos.</p>
-          <p>Para empezar, simplemente haz clic en el botón "Publica tu blog" y comienza a escribir. Puedes incluir imágenes y videos para dar vida a tus publicaciones y asegurarte de que sean atractivas para tus lectores.</p>
-          <p>¡Únete a nuestra comunidad hoy y comienza a compartir tus ideas con el mundo!</p>
+          <h1 class="display-4 fst-italic">Bienvenido de nuevo.</h1>
+          <p>Aquí, podrás acceder a toda la información y servicios relacionados con las atenciónes médicas. Podrás gestionar tus citas médicas de manera conveniente, conocer a nuestros valiosos pacientes y médicos especializados.</p>
+          <p>¡Puedes registrar una cuenta nueva o iniciar sesión!</p>
           <a href="{% url 'register' %}" class="btn btn-outline-primary w-50 fs-3">Registrate</a>
-          <a href="{% url 'login' %}" class="btn btn-outline-primary w-50 fs-3">Iniciar Sesión</a>
+          <a href="{% url 'login_user' %}" class="btn btn-outline-primary w-50 fs-3">Iniciar Sesión</a>
         </div>
         <div class="col-md-6">
           {% comment %} <img src="#" alt="Imagen de bienvenida" class="img-fluid" /> {% endcomment %}

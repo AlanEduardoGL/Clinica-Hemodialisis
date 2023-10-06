@@ -1,4 +1,8 @@
 from django import forms
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
+User = get_user_model()
 
 
 class FormRegister(forms.Form):
@@ -46,3 +50,12 @@ class FormRegister(forms.Form):
         'class': 'form-check-input',
         'id': 'flexSwitchCheckChecked',
     }))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        # Verifica que el nombre de usuario no esté en uso
+        if User.objects.filter(username=username).exists():
+            raise ValidationError('El nombre de usuario ya está en uso.')
+
+        return username
