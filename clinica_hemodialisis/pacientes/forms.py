@@ -55,10 +55,15 @@ class FormPatient(forms.Form):
         'name': 'symptoms',
         'placeholder': 'Síntomas'
     }))
+    postal_code = forms.IntegerField(widget=forms.NumberInput(attrs={
+        'class': 'form-control',
+        'name': 'postal_code',
+        'placeholder': 'Código Postal'
+    }))
     street_address = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
         'class': 'form-control',
         'name': 'street_address',
-        'placeholder': 'Nombre del Paciente'
+        'placeholder': 'Dirección'
     }))
     city = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
         'class': 'form-control',
@@ -69,11 +74,6 @@ class FormPatient(forms.Form):
         'class': 'form-control',
         'name': 'state',
         'placeholder': 'Estado'
-    }))
-    postal_code = forms.IntegerField(widget=forms.NumberInput(attrs={
-        'class': 'form-control',
-        'name': 'postal_code',
-        'placeholder': 'Código Postal'
     }))
 
     def clean_patient(self):

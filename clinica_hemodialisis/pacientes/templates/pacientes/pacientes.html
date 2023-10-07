@@ -6,36 +6,61 @@
 
 {% block content %}
   <h1>Pacientes</h1>
-  <a href="#" class="btn btn-success">Nuevo Paciente</a>
   <br />
+  <a href="{% url 'agregar_paciente' %}" class="btn btn-success" title="Nuevo Paciente">Nuevo Paciente</a>
+  <br />
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+  {% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+  {% endif %}
   <section>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">ID</th>
+          <th scope="col">Medico Registrado</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Genero</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Email</th>
+          <th scope="col">Alergias</th>
+          <th scope="col">Sintomas</th>
+          <th scope="col">Codigo Postal</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha de Registro</th>
+          <th scope="col">Fecha de Edicion</th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {% for patient in user_patients %}
+          <tr>
+            <th scope="row">{{ patient.id_patient }}</th>
+            <td>{{ user.name }} {{ user.last_name }}</td>
+            <td>{{ patient.patient_name }} {{ patient.patient_last_name }}</td>
+            <td>{{ patient.patient_age }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.cell_number }}</td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.allergies }}</td>
+            <td>{{ patient.symptoms }}</td>
+            <td>{{ patient.postal_code }}</td>
+            <td>{{ patient.street_address }}</td>
+            <td>{{ patient.city }}</td>
+            <td>{{ patient.state }}</td>
+            <td>{{ patient.created }}</td>
+            <td>{{ patient.updated }}</td>
+            <td>
+              <a href="#" title="Editar" class="btn btn-success">Editar</a>
+              <a href="#" title="Eliminar" class="btn btn-danger">Eliminar</a>
+            </td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </section>

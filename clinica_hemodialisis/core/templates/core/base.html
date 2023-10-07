@@ -11,7 +11,7 @@
     </title>
   </head>
   <body>
-    {% if request.path != '/login/' and request.path != '/register/' %}
+    {% if request.path != '/login/' and request.path != '/register/' and request.path != '/agregar_paciente/' %}
       {% if user %}
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">

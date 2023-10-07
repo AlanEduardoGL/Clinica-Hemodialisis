@@ -28,6 +28,7 @@ urlpatterns = [
     path('login/', views_login.login_user, name='login_user'),
     path('logout/', views_login.logout_user, name='logout_user'),
     path('pacientes/', views_pacientes.pacientes, name='pacientes'),
+    path('agregar_paciente/', views_pacientes.agregar_paciente, name='agregar_paciente'),
     path('medicos_registrados/', views_medicos.medicos_registrados, name='medicos_registrados'),
     path('admin/', admin.site.urls),
 ]
