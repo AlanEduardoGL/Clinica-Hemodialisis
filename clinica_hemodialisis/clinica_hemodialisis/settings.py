@@ -44,7 +44,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 Configuramos la URL donde se redirige al usuario
 para iniciar sesion.
 """
-LOGIN_URL = 'login'
+LOGIN_URL = 'login_user'
 
 # Reemplaza 'tu_app' con el nombre de la aplicación donde está definido tu modelo User
 AUTH_USER_MODEL = 'register.User'
