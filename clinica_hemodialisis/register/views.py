@@ -49,7 +49,6 @@ def register(request):
 
             # Validamos que ambos passwords coinciden.
             if password == confirm_password:
-
                 # Query para buscar email ingresado.
                 existing_user = User.objects.filter(email=email).exists()
 
@@ -80,8 +79,7 @@ def register(request):
                     except Exception as e:
                         error_message = f'Error al crear el usuario "{username}": {str(e)}'
                     else:
-
-                        return redirect('login')
+                        return redirect('login_user')
 
             else:
                 error_message = "Las contraseñas no coinciden. Vuelve a intentarlo."
