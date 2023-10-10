@@ -7,6 +7,7 @@ from register.models import User
 
 class Patient(AbstractUser):
     id_patient = models.AutoField(primary_key=True, verbose_name="ID Paciente")
+    username = None
     id_username = models.ForeignKey(User, on_delete=models.CASCADE)
     patient_name = models.CharField(max_length=255, verbose_name="Nombre Paciente")
     patient_last_name = models.CharField(max_length=255, verbose_name="Apellido Paciente")
