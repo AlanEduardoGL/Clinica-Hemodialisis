@@ -245,3 +245,29 @@ def edit_patient(request, id_patient):
         })
 
     return render(request, 'pacientes/edit_patient.html', {'error_message': error_message, 'patient': patient, "form": form})
+
+
+@login_required  # ! Requerimos la sesion del usuario.
+def delete_patient(request, id_patient):
+
+    error_message = None
+
+    try:
+        # Abrimos trabsaccion.
+        with transaction.atomic():
+            # Query para obtener el paciente a eliminar.
+            delete_patient = Patient.objects.get(id_patient=id_patient)
+
+            # Eliminamos el registro.
+            delete_patient.delete()
+    except Exception as e:
+        error_message = f'Error al eliminar el paciente "{delete_patient.patient_name}". {str(e)}'
+
+        return render(request, 'pacientes/confirm_delete_patient.html', {'error_message': error_message})
+    else:
+        messages.success(
+            request,
+            f'Se elimino con exito el usuario "{delete_patient.patient_name}"'
+        )
+
+        return redirect('pacientes')
