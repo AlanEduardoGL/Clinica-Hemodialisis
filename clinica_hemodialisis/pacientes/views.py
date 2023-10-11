@@ -25,10 +25,10 @@ def agregar_paciente(request):
     Además, requiere que el usuario esté autenticado para acceder a ella.
 
     Args:
-        request (_type_): _description_
+        request (HttpRequest): La solicitud web actual.
 
     Returns:
-        _type_: _description_
+        HttpResponse: La respuesta HTTP que muestra el resultado.
     """
     error_message = None
 
@@ -93,7 +93,9 @@ def agregar_paciente(request):
                     error_message = f'Error al registrar el paciente "{patient_name}": {str(e)}'
                 else:
                     messages.success(
-                        request, f'El paciente "{patient_name}" se ha registrado exitosamente.')
+                        request, 
+                        f'El paciente "{patient_name}" se ha registrado exitosamente.'
+                    )
 
                     return redirect('pacientes')
     else:
@@ -112,10 +114,10 @@ def pacientes(request):
     de error en caso de que ocurran problemas durante el proceso de obtención de datos.
 
     Args:
-        request (_type_): _description_
+        request (HttpRequest): La solicitud web actual.
 
     Returns:
-        _type_: _description_
+        HttpResponse: La respuesta HTTP que muestra el resultado.
     """
     user_patients = None
     error_message = None
@@ -137,8 +139,8 @@ def pacientes(request):
 
     except Exception as e:
         error_message = f'Ocurrio un error interno al obtener el registro de pacientes. "{str(e)}"'
-    else:
-        return render(request, 'pacientes/pacientes.html', {'user_patients': user_patients, 'user': user, 'error_message': error_message})
+
+    return render(request, 'pacientes/pacientes.html', {'user_patients': user_patients, 'user': user, 'error_message': error_message})
 
 
 @login_required  # ! Requerimos la sesion del usuario.
@@ -150,11 +152,11 @@ def edit_patient(request, id_patient):
     informar al usuario sobre el resultado de la operación.
 
     Args:
-        request (_type_): _description_
+        request (HttpRequest): La solicitud web actual.
         id_patient (int): ID del usuario a editar.
 
     Returns:
-        _type_: _description_
+        HttpResponse: La respuesta HTTP que muestra el resultado.
     """
 
     error_message = None
@@ -249,16 +251,31 @@ def edit_patient(request, id_patient):
 
 @login_required  # ! Requerimos la sesion del usuario.
 def confirm_delete_patient(request, id_patient):
+    """
+    Vista que maneja la confirmación de la eliminación de un paciente. 
+    Si todo va bien, muestra los detalles del paciente. Si ocurre algún error, 
+    muestra un mensaje de error. El uso de transaction.atomic() 
+    garantiza la integridad de la base de datos en caso de errores.
 
+    Args:
+        request (HttpRequest): La solicitud web actual.
+        id_patient (int): El ID del paciente a eliminar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
+
+    # Variables nulas.
     message_error = None
     patient = None
 
     try:
-        # Abrimos trabsaccion.
+        # Abrimos transaccion.
         with transaction.atomic():
             # Query para traer al paciente por su ID.
             patient = Patient.objects.get(id_patient=id_patient)
     except Exception as e:
+        # Mandamos mensaje de error en caso de excepcion.
         message_error = f'Error interno. Intenta nuevamente. {str(e)}.'
 
     return render(request, 'pacientes/confirm_delete_patient.html', {'message_error': message_error, 'patient': patient})
@@ -267,22 +284,39 @@ def confirm_delete_patient(request, id_patient):
 
 @login_required  # ! Requerimos la sesion del usuario.
 def delete_patient(request, id_patient):
+    """
+    Vista que maneja la eliminación de un paciente. 
+    Si la eliminación tiene éxito, muestra un mensaje de éxito 
+    al usuario y lo redirige a la página de pacientes. Si ocurre un error, 
+    muestra un mensaje de error y redirige al usuario a la página 
+    de confirmación de eliminación de paciente. El uso de transaction.atomic() 
+    garantiza la integridad de la base de datos en caso de errores.
 
+    Args:
+        request (HttpRequest): La solicitud web actual.
+        id_patient (int): El ID del paciente a eliminar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
+
+    # Variable nula.
     error_message = None
 
     try:
-        # Abrimos trabsaccion.
+        # Abrimos transaccion.
         with transaction.atomic():
             # Query para obtener el paciente a eliminar.
             delete_patient = Patient.objects.get(id_patient=id_patient)
-
             # Eliminamos el registro.
             delete_patient.delete()
     except Exception as e:
+        # Mensaje de error al usuario.
         error_message = f'Error al eliminar el paciente "{delete_patient.patient_name}". {str(e)}'
 
         return render(request, 'pacientes/confirm_delete_patient.html', {'error_message': error_message})
     else:
+        # Mensaje de exito al usuario.
         messages.success(
             request,
             f'Se elimino con exito el usuario "{delete_patient.patient_name}"'
