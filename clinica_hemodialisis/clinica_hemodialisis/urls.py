@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', views_login.logout_user, name='logout_user'),
     path('pacientes/', views_pacientes.pacientes, name='pacientes'),
     path('editar_paciente/<int:id_patient>/', views_pacientes.edit_patient, name='edit_patient'),
+    path('confirm_delete_patient/<int:id_patient>/', views_pacientes.confirm_delete_patient, name='confirm_delete_patient'),
     path('delete_patient/<int:id_patient>/', views_pacientes.delete_patient, name='delete_patient'),
     path('agregar_paciente/', views_pacientes.agregar_paciente, name='agregar_paciente'),
     path('medicos_registrados/', views_medicos.medicos_registrados, name='medicos_registrados'),

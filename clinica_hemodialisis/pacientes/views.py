@@ -248,6 +248,24 @@ def edit_patient(request, id_patient):
 
 
 @login_required  # ! Requerimos la sesion del usuario.
+def confirm_delete_patient(request, id_patient):
+
+    message_error = None
+    patient = None
+
+    try:
+        # Abrimos trabsaccion.
+        with transaction.atomic():
+            # Query para traer al paciente por su ID.
+            patient = Patient.objects.get(id_patient=id_patient)
+    except Exception as e:
+        message_error = f'Error interno. Intenta nuevamente. {str(e)}.'
+
+    return render(request, 'pacientes/confirm_delete_patient.html', {'message_error': message_error, 'patient': patient})
+
+
+
+@login_required  # ! Requerimos la sesion del usuario.
 def delete_patient(request, id_patient):
 
     error_message = None
