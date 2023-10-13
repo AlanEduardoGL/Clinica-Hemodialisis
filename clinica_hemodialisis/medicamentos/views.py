@@ -106,6 +106,8 @@ def edit_medicine(request, id_medicine):
             stock = form.cleaned_data['stock']
             expiration_date = form.cleaned_data['expiration_date']
             category = form.cleaned_data['category']
+            brand = form.cleaned_data['brand']
+            supplier = form.cleaned_data['supplier']
 
             # Abrimos excepcion.
             try:
@@ -121,6 +123,8 @@ def edit_medicine(request, id_medicine):
                     update_medicine.stock = stock
                     update_medicine.expiration_date = expiration_date
                     update_medicine.category = category
+                    update_medicine.brand = brand
+                    update_medicine.supplier = supplier
 
                     # Guardamos los cambios.
                     update_medicine.save()
@@ -151,7 +155,9 @@ def edit_medicine(request, id_medicine):
             'price': medicine.price,
             'stock': medicine.stock,
             'expiration_date': medicine.expiration_date,
-            'category': medicine.category
+            'category': medicine.category,
+            'brand': medicine.brand,
+            'supplier': medicine.supplier
         })
 
     return render(request, 'medicamentos/edit_medicine.html', {'form': form, 'error_message': error_message, 'medicine': medicine})
