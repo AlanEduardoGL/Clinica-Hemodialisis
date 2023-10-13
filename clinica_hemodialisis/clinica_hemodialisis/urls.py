@@ -36,5 +36,7 @@ urlpatterns = [
     path('medicos_registrados/', views_medicos.medicos_registrados, name='medicos_registrados'),
     path('medicines/', views_medicine.medicines, name='medicines'),
     path('add_medicines/', views_medicine.add_medicines, name='add_medicines'),
+    path('edit_medicine/<int:id_medicine>/', views_medicine.edit_medicine, name='edit_medicine'),
+    path('confirm_delete_medicine/<int:id_medicine>/', views_medicine.confirm_delete_medicine, name='confirm_delete_medicine'),
     path('admin/', admin.site.urls),
 ]
