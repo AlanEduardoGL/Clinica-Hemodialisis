@@ -21,6 +21,7 @@ from pacientes import views as views_pacientes
 from medicos import views as views_medicos
 from login import views as views_login
 from register import views as views_register
+from medicamentos import views as views_medicine
 
 urlpatterns = [
     path('', views_core.index, name='index'),
@@ -33,5 +34,7 @@ urlpatterns = [
     path('delete_patient/<int:id_patient>/', views_pacientes.delete_patient, name='delete_patient'),
     path('agregar_paciente/', views_pacientes.agregar_paciente, name='agregar_paciente'),
     path('medicos_registrados/', views_medicos.medicos_registrados, name='medicos_registrados'),
+    path('medicines/', views_medicine.medicines, name='medicines'),
+    path('add_medicines/', views_medicine.add_medicines, name='add_medicines'),
     path('admin/', admin.site.urls),
 ]

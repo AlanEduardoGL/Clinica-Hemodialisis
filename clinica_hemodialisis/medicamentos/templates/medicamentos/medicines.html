@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Medicamentos
+{% endblock %}
+
+{% block content %}
+  <h1>Medicamentos en Stock</h1>
+  <br />
+  <a href="{% url 'add_medicines' %}" class="btn btn-primary" title="Nuevo Paciente">
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+      <path d="M16 19h6"></path>
+      <path d="M19 16v6"></path>
+      <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+    </svg>Agregar Medicamento
+  </a>
+  <br />
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+  {% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+  {% endif %}
+  {% if medicines %}
+    <section>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Fecha de Expiracion</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Fecha Creacion</th>
+            <th scope="col">Fecha Edicion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for medicine in medicines %}
+            <tr>
+              <th scope="row">{{ medicine.id }}</th>
+              <td>{{ medicine.name }}</td>
+              <td>{{ medicine.description }}</td>
+              <td>${{ medicine.price }}</td>
+              <td>{{ medicine.stock }}</td>
+              <td>{{ medicine.expiration_date }}</td>
+              <td>{{ medicine.brand }}</td>
+              <td>{{ medicine.supplier }}</td>
+              <td>{{ medicine.category }}</td>
+              <td>{{ medicine.created }}</td>
+              <td>{{ medicine.updated }}</td>
+              <td>
+                <a href="{% url 'edit_patient' medicine.id %}" title="Editar" class="btn btn-warning">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-edit" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+                    <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
+                  </svg>
+                </a>
+                <a href="{% url 'confirm_delete_patient' medicine.id %}" title="Eliminar" class="btn btn-danger">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 7h16" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    <path d="M10 12l4 4m0 -4l-4 4" />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% else %}
+    <br />
+    <div class="alert alert-primary alert-sm" role="alert">
+      <a href="{% url 'add_medicines' %}" class="alert-link">Agrega medicamentos</a> para poder visualizarlos en tus registros.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %}
+{% endblock %}
