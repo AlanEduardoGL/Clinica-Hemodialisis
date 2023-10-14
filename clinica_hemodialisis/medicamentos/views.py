@@ -16,6 +16,18 @@ from django.contrib.auth.decorators import login_required
 
 @login_required  # ! Requerimos la sesion del usuario.
 def medicines(request):
+    """
+    Vista que verifica si el usuario ha iniciado sesión, 
+    recupera una lista de medicamentos de la base de datos 
+    y muestra esta lista en una página web. En caso de error, 
+    también maneja mensajes de error.
+
+    Args:
+        request (HttpRequest): La solicitud web actual.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
 
     # Variables nulas.
     medicines = None
@@ -87,6 +99,18 @@ def add_medicines(request):
 
 @login_required  # ! Requerimos la sesion del usuario.
 def edit_medicine(request, id_medicine):
+    """
+    Vista que permite a los usuarios agregar nuevos medicamentos 
+    a la base de datos, validando los datos ingresados en un formulario 
+    y manejando excepciones en caso de errores.
+
+    Args:
+        request (HttpRequest): La solicitud web actual.
+        id_medicine (int): ID del medicamento a editar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
 
     # Variables nulas.
     error_message = None
@@ -132,7 +156,7 @@ def edit_medicine(request, id_medicine):
                 error_message = f'Error al actualizar datos. Intenta nuevamente. {str(e)}'
             else:
                 # Mensaje de exito para el usuario.
-                messages.succes(
+                messages.success(
                     request,
                     f'Se actualizo correctamente el medicamento "{name}".'
                 )
@@ -165,5 +189,73 @@ def edit_medicine(request, id_medicine):
 
 @login_required  # ! Requerimos la sesion del usuario.
 def confirm_delete_medicine(request, id_medicine):
+    """
+    Vista que se utiliza para mostrar información sobre un medicamento específico 
+    y confirmar su eliminación. Si el medicamento se encuentra en la base de datos, 
+    se mostrará en la plantilla junto con la opción de confirmar la eliminación. 
+    Si ocurre algún error, se mostrará un mensaje de error.
 
-    return render(request, 'medicamentos/confirm_delete_medicine.html')
+    Args:
+        request (HttpRequest): La solicitud web actual.
+        id_medicine (int): ID del medicamento a editar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
+
+    # Variables nulas.
+    message_error = None
+    medicine = None
+
+    # Abrimos excepcion.
+    try:
+        # Abrimos transaccion.
+        with transaction.atomic():
+            # Query para traer el medicamento por su ID.
+            medicine = Medicine.objects.get(id=id_medicine)
+    except Exception as e:
+        # Mandamos mensaje de error en caso de excepcion.
+        message_error = f'Error interno. Intenta nuevamente. {str(e)}.'
+
+    return render(request, 'medicamentos/confirm_delete_medicine.html', {'message_error': message_error, 'medicine': medicine})
+
+
+@login_required  # ! Requerimos la sesion del usuario.
+def delete_medicine(request, id_medicine):
+    """
+    Vista que se utiliza para eliminar un medicamento específico de la base de datos. 
+    Si la eliminación es exitosa, se muestra un mensaje de éxito y se redirige 
+    a la vista de lista de medicamentos. Si ocurre algún error, se muestra un mensaje de error.
+
+    Args:
+        request (HttpRequest): La solicitud web actual.
+        id_medicine (int): ID del medicamento a editar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP que muestra el resultado.
+    """
+
+    # Variable nula.
+    error_message = None
+
+    # Abrimos excepcion.
+    try:
+        # Abrimos transaccion.
+        with transaction.atomic():
+            # Query para obtener el paciente a eliminar.
+            delete_medicine = Medicine.objects.get(id=id_medicine)
+            # Eliminamos el registro.
+            delete_medicine.delete()
+    except Exception as e:
+        # Mensaje de error al usuario.
+        error_message = f'Error al eliminar el medicamento "{delete_medicine.name}". {str(e)}'
+
+        return render(request, 'medicamentos/confirm_delete_medicine.html', {'error_message': error_message})
+    else:
+        # Mensaje de exito al usuario.
+        messages.success(
+            request,
+            f'Se elimino con exito el medicamento "{delete_medicine.name}"'
+        )
+
+        return redirect('medicines')

@@ -38,5 +38,6 @@ urlpatterns = [
     path('add_medicines/', views_medicine.add_medicines, name='add_medicines'),
     path('edit_medicine/<int:id_medicine>/', views_medicine.edit_medicine, name='edit_medicine'),
     path('confirm_delete_medicine/<int:id_medicine>/', views_medicine.confirm_delete_medicine, name='confirm_delete_medicine'),
+    path('delete_medicine/<int:id_medicine>/', views_medicine.delete_medicine, name='delete_medicine'),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Confirmar Petición
+{% endblock %}
+
+{% if error_message %}
+  <div class="alert alert-danger">{{ error_message }}</div>
+{% else %}
+  {% block content %}
+    <div class="container">
+      <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+          <h1 class="text-center">Confirma la Petición</h1>
+          <hr />
+          <section class="text-center">
+            <h3>¿Estas seguro de eliminar al medicamento "{{ medicine.name }}" del inventario?</h3>
+            <br />
+            <a href="{% url 'delete_medicine' medicine.id %}" class="btn btn-danger" title="Eliminar">Eliminar</a>
+            <a href="{% url 'medicines' %}" class="btn btn-primary" title="Cancelar">Cancelar</a>
+            <br />
+            <br />
+            <p style="opacity: 0.5;">Esta acción es irreversible.</p>
+          </section>
+          <hr />
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+{% endif %}
