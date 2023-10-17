@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'medicamentos',
     'login.apps.LoginConfig',
     'register',
+    'quotes',
 ]
 
 MIDDLEWARE = [

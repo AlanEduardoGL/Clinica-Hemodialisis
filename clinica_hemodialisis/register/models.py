@@ -22,6 +22,7 @@ class User(AbstractUser):
         verbose_name_plural = "usuarios"
         ordering = ["-created"] # Campo de ordenamiento par nuestros registros. Del mas nuevo al mas antiguo.
 
-    # Devolvemos el nombre del usuario.
+    # Devolvemos el username del usuario.
     def __str__(self):
-        return self.nombre
+        name = f'{self.name} {self.last_name}'
+        return name 

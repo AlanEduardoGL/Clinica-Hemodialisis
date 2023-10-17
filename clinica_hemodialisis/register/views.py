@@ -52,7 +52,7 @@ def register(request):
                 # Query para buscar email ingresado.
                 existing_user = User.objects.filter(email=email).exists()
 
-                # Validamos que el usuario a registrar no exusta en la base de datos.
+                # Validamos que el usuario a registrar no exista en la base de datos.
                 if existing_user:
                     error_message = f'El correo "{email}" ya se encuentra registrado. Intenta nuevamente.'
                 else:

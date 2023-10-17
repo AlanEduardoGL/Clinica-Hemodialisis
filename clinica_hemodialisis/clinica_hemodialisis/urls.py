@@ -22,9 +22,11 @@ from medicos import views as views_medicos
 from login import views as views_login
 from register import views as views_register
 from medicamentos import views as views_medicine
+from quotes import views as views_quotes
 
 urlpatterns = [
     path('', views_core.index, name='index'),
+    path('quotes/', views_quotes.quotes, name='quotes'),
     path('register/', views_register.register, name='register'),
     path('login/', views_login.login_user, name='login_user'),
     path('logout/', views_login.logout_user, name='logout_user'),

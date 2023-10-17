@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Agendar Cita
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="col-md-6">
+        <h1 class="text-center">Agendar Cita</h1>
+        <section>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">{{ form.as_p }}</div>
+            {% if error_message %}
+              <div class="alert alert-danger">{{ error_message }}</div>
+            {% endif %}
+            <hr />
+            <button class="btn btn-primary" type="submit" title="Registrar">Agendar Cita</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}
