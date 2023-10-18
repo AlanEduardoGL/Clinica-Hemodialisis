@@ -1,26 +1,23 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from pacientes.models import Patient
-from medicamentos.models import Medicine
-from register.models import User
 
 Quotes = get_user_model()
+
 
 class FloatInput(forms.TextInput):
     input_type = 'number'
 
+
 class FormQuotes(forms.Form):
-    medic = forms.ModelMultipleChoiceField(
-        queryset = User.objects.all(),
+    medic = forms.ChoiceField(
         widget=forms.SelectMultiple(attrs={
             'class': 'form-control',
             'name': 'medic',
             'placeholder': 'Medico'
         })
     )
-    patient = forms.ModelMultipleChoiceField(
-        queryset = Patient.objects.all(),  # Asegúrate de importar el modelo Patient
+    patient = forms.ChoiceField(
         widget=forms.SelectMultiple(attrs={
             'class': 'form-control',
             'name': 'patient',
@@ -38,8 +35,7 @@ class FormQuotes(forms.Form):
         'name': 'symptoms',
         'placeholder': 'Síntomas'
     }))
-    medicines = forms.ModelMultipleChoiceField(
-        queryset = Medicine.objects.all(),  # Asegúrate de importar el modelo Medicine
+    medicines = forms.ChoiceField(
         widget=forms.SelectMultiple(attrs={
             'class': 'form-control',
             'name': 'medicines',
