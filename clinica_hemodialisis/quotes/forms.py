@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.db.models import CharField
 from django.db.models.functions import Concat
 from django.db.models import F, Value
 from register.models import User
@@ -50,20 +51,6 @@ class FormQuotes(forms.Form):
         'name': 'symptoms',
         'placeholder': 'Síntomas'
     }))
-    medicines = forms.ModelMultipleChoiceField(
-        queryset=Medicine.objects.all().annotate(
-            full_name_medicine=Concat(F('name'), Value(' - $'), F('price'))
-        ),
-        widget=forms.CheckboxSelectMultiple(attrs={
-            'class': 'form-check-input',
-            'name': 'medicines'
-        })
-    )
-    total_price = forms.FloatField(widget=FloatInput(attrs={
-        'class': 'form-control',
-        'name': 'total_price',
-        'placeholder': '$0.00'
-    }))
 
     # Configuramos los "label" de cada input.
     def __init__(self, *args, **kwargs):
@@ -72,5 +59,3 @@ class FormQuotes(forms.Form):
         self.fields['patient'].label = "Paciente"
         self.fields['date'].label = "Fecha de Cita"
         self.fields['symptoms'].label = "Síntomas"
-        self.fields['medicines'].label = "Medicamentos"
-        self.fields['total_price'].label = "Costo Total Consulta"

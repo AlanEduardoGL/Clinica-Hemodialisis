@@ -15,7 +15,7 @@ class Medicine(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de Actualizacion")
 
-     # Agregamos meta datos extendidos.
+    # Agregamos meta datos extendidos.
     class Meta:
         verbose_name = "medicamento"
         verbose_name_plural = "medicamentos"

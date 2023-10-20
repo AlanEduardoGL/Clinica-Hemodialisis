@@ -26,21 +26,12 @@
               {{ form.symptoms }}</div>
             <br />
             <div class="form-group">
-              {{ form.medicines.label_tag }}
-              <div class="horizontal-checkboxes">
-                {% for checkbox in form.medicines %}
-                  <div class="form-check form-check-inline">
-                    {{ checkbox }}
-                    <label for="{{ checkbox.id_for_label }}" class="form-check-label">{{ checkbox.choice_label }}</label>
-                  </div>
-                {% endfor %}
-              </div>
+              <a title="Agregar Medicamentos" class="btn btn-outline-warning" href="{% url 'add_medicines_quotes' %}">Agregar Medicamentos</a>
             </div>
             <br />
-            <div class="form-group">{{ form.total_price.label_tag }}
-              {{ form.total_price }}</div>
-            <br />
-            <button type="submit" class="btn btn-primary">Agendar Cita</button>
+            <label>Total: $0.00</label>
+            <hr />
+            <a title="Agendar Cita" class="btn btn-primary" href="{% url 'summary_quote' %}">Agendar Cita</a>
           </form>
         </section>
       </div>
