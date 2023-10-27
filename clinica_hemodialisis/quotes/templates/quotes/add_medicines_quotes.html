@@ -25,17 +25,17 @@
     <tbody>
       {% for medicine in medicines %}
         <tr>
-          <th id="medicine_id" scope="row">{{ medicine.id }}</th>
+          <th class="medicine_id" scope="row">{{ medicine.id }}</th>
           <td>{{ medicine.name }}</td>
           <td>{{ medicine.description }}</td>
           <td>{{ medicine.category }}</td>
           <td>{{ medicine.stock }}</td>
           <td>${{ medicine.price }}</td>
           <td>
-            <input name="quantity_request" id="quantity_request" placeholder="Cantidad" type="number" required />
+            <input class="quantity_request" placeholder="Cantidad" type="number" required />
           </td>
           <td>
-            <button name="add_quantity" id="add_quantity" class="btn btn-success">Agregar</button>
+            <a class="add_quantity btn btn-success">Agregar</a>
           </td>
         </tr>
       {% endfor %}
