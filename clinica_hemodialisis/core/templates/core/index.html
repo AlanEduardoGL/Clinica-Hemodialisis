@@ -18,6 +18,32 @@
         </div>
       </div>
     </section>
+    {% if quotes is not None%}
+    <h1>Citas Proximas</h1>
+    <br>
+    <section>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Nombre Paciente</th>
+            <th scope="col">Sintomas</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for quote in quotes %}
+            <tr>
+              <td>{{ quote.date }}</td>
+              <td>{{ quote.patient.patient_name }}</td>
+              <td>{{ quote.symptoms }}</td>
+              <td>Pendiente</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    {% endif %}
     <!-- Sección de bienvenida -->
     {% if warning_message %}
       <div class="alert alert-warning">{{ warning_message }}</div>

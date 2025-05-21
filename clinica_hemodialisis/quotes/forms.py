@@ -11,17 +11,17 @@ class FloatInput(forms.TextInput):
     input_type = 'number'
 
 class FormQuotes(forms.Form):
-    medic = forms.ModelMultipleChoiceField(
+    medic = forms.ModelChoiceField(
         queryset = User.objects.all(),
-        widget=forms.SelectMultiple(attrs={
+        widget=forms.Select(attrs={
             'class': 'form-control',
             'name': 'medic',
             'placeholder': 'Medico'
         })
     )
-    patient = forms.ModelMultipleChoiceField(
+    patient = forms.ModelChoiceField(
         queryset = Patient.objects.all(),  # Asegúrate de importar el modelo Patient
-        widget=forms.SelectMultiple(attrs={
+        widget=forms.Select(attrs={
             'class': 'form-control',
             'name': 'patient',
             'placeholder': 'Paciente'

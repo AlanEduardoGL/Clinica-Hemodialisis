@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from register.models import User
 from django.contrib.auth.decorators import login_required
+from quotes.models import Quotes
 
 
 # Create your views here.
@@ -22,6 +23,7 @@ def index(request):
     """
     warning_message = None
     user = None
+    quotes = None
 
     if request.user.is_authenticated:
         # Recuperamos el id del usuario de la sesion del objeto "request.user".  
@@ -33,7 +35,10 @@ def index(request):
     if id_user is not None:
         # Query para traer datos del usuario.
         user = User.objects.get(id_user=id_user)
+        quotes = Quotes.objects.filter(medic_id=id_user).select_related('patient')
+
     else:
         warning_message = f'El usuario no ha iniciado sesión o la sesión ha expirado.'
 
-    return render(request, 'core/index.html', {'warning_message': warning_message, 'user': user})
+    return render(request, 'core/index.html', {'warning_message': warning_message, 'user': user, 'quotes': quotes})
+
