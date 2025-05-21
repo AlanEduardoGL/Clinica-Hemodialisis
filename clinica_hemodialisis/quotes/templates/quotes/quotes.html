@@ -10,14 +10,28 @@
       <div class="col-md-6">
         <h1 class="text-center">Agendar Cita</h1>
         <section>
-          <form method="POST">
+          <form method="post">
             {% csrf_token %}
-            <div class="mb-3">{{ form.as_p }}</div>
-            {% if error_message %}
-              <div class="alert alert-danger">{{ error_message }}</div>
-            {% endif %}
+            <br />
+            <div class="form-group">{{ form.medic.label_tag }}
+              {{ form.medic }}</div>
+            <br />
+            <div class="form-group">{{ form.patient.label_tag }}
+              {{ form.patient }}</div>
+            <br />
+            <div class="form-group">{{ form.date.label_tag }}
+              {{ form.date }}</div>
+            <br />
+            <div class="form-group">{{ form.symptoms.label_tag }}
+              {{ form.symptoms }}</div>
+            <br />
+            <div class="form-group">
+              <a title="Agregar Medicamentos" class="btn btn-outline-warning" href="{% url 'add_medicines_quotes' %}">Agregar Medicamentos</a>
+            </div>
+            <br />
+            <label>Total: $0.00</label>
             <hr />
-            <button class="btn btn-primary" type="submit" title="Registrar">Agendar Cita</button>
+            <a title="Agendar Cita" class="btn btn-primary" href="{% url 'summary_quote' %}">Agendar Cita</a>
           </form>
         </section>
       </div>

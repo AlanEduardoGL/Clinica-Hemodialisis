@@ -11,7 +11,7 @@ class Quotes(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, verbose_name="Paciente")
     date = models.DateField(verbose_name="Fecha Cita")
     symptoms = models.TextField(verbose_name="Sintomas")
-    medicines = models.ManyToManyField(Medicine, verbose_name="Medicamentos")
+    medicines = models.ManyToManyField(Medicine, verbose_name="Medicamentos", null=True, blank=True)
     total_price = models.FloatField(verbose_name="Precio Total")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de Actualizacion")

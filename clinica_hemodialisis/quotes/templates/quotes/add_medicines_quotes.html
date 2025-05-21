@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Agregar Medicamentos
+{% endblock %}
+
+{% block content %}
+  <h1>Agregar Medicamentos</h1>
+  {% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+  {% endif %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for medicine in medicines %}
+        <tr>
+          <th class="medicine_id" scope="row">{{ medicine.id }}</th>
+          <td>{{ medicine.name }}</td>
+          <td>{{ medicine.description }}</td>
+          <td>{{ medicine.category }}</td>
+          <td>{{ medicine.stock }}</td>
+          <td>${{ medicine.price }}</td>
+          <td>
+            <input class="quantity_request" placeholder="Cantidad" type="number" required />
+          </td>
+          <td>
+            <a class="add_quantity btn btn-success">Agregar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -27,6 +27,8 @@ from quotes import views as views_quotes
 urlpatterns = [
     path('', views_core.index, name='index'),
     path('quotes/', views_quotes.quotes, name='quotes'),
+    path('add_medicines_quotes/', views_quotes.add_medicines_quotes, name='add_medicines_quotes'),
+    path('summary_quote/', views_quotes.summary_quote, name='summary_quote'),
     path('register/', views_register.register, name='register'),
     path('login/', views_login.login_user, name='login_user'),
     path('logout/', views_login.logout_user, name='logout_user'),
