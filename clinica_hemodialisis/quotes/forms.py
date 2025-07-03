@@ -18,13 +18,7 @@ class FloatInput(forms.TextInput):
 
 class FormQuotes(forms.Form):
     medic = forms.ModelChoiceField(
-<<<<<<< HEAD
         queryset = User.objects.all(),
-=======
-        queryset=User.objects.all().annotate(
-            full_name_medic=Concat(F('last_name'), Value(' '), F('name'))
-        ),
->>>>>>> 1cba098d56860c78bec18d20d025fba65f5a0e8b
         widget=forms.Select(attrs={
             'class': 'form-control',
             'name': 'medic',
@@ -33,14 +27,7 @@ class FormQuotes(forms.Form):
         empty_label="Selecciona una médico"
     )
     patient = forms.ModelChoiceField(
-<<<<<<< HEAD
         queryset = Patient.objects.all(),  # Asegúrate de importar el modelo Patient
-=======
-        queryset=Patient.objects.all().annotate(
-            full_name_patient=Concat(
-                F('patient_last_name'), Value(' '), F('patient_name'))
-        ),
->>>>>>> 1cba098d56860c78bec18d20d025fba65f5a0e8b
         widget=forms.Select(attrs={
             'class': 'form-control',
             'name': 'patient',

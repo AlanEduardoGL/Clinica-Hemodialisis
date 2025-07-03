@@ -4,20 +4,17 @@ from django.shortcuts import (
     get_object_or_404
 )
 from .forms import FormQuotes
-<<<<<<< HEAD
 from .models import Quotes
 # Realiza transacciones seguras en las consultas ORM.
 from django.db import transaction
 # Mensajes de alerta para el usuario.
 from django.contrib import messages
-=======
 from django.contrib.auth.decorators import login_required
 # Realiza transacciones seguras en las consultas ORM.
 from django.db import transaction
 from django.contrib import messages  # Mensajes de alerta para el usuario.
 from django.contrib.auth import get_user_model
 from medicamentos.models import Medicine
->>>>>>> 1cba098d56860c78bec18d20d025fba65f5a0e8b
 
 # Create your views here.
 
@@ -67,7 +64,6 @@ def summary_quote(request):
 
     error_message = None
 
-<<<<<<< HEAD
     # Validmaos que el usuario envió el formulario por POST.
     if request.method == 'POST':
         
@@ -110,6 +106,3 @@ def summary_quote(request):
         form = FormQuotes()
 
     return render(request, 'quotes/quotes.html', {'form': form, 'error_message': error_message})
-=======
-    return render(request, 'quotes/summary_quote.html', {'error_message': error_message})
->>>>>>> 1cba098d56860c78bec18d20d025fba65f5a0e8b
